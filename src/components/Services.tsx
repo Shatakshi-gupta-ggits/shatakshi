@@ -1,37 +1,37 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
-import { Bot, Code, Plug, Users, Wrench, GraduationCap } from "lucide-react";
+import { Sparkles, Code, Palette, Zap, Smartphone, Lightbulb } from "lucide-react";
 
 const services = [
   {
-    icon: Bot,
-    title: "Automation",
-    description: "Streamline your operations with intelligent robotics automation solutions that increase efficiency and reduce costs.",
+    icon: Sparkles,
+    title: "AI Integration",
+    description: "Transform your business with cutting-edge AI solutions. From ChatGPT integration to custom machine learning models that drive results.",
   },
   {
     icon: Code,
-    title: "Development",
-    description: "Custom robotics software and hardware development tailored to your specific business needs and requirements.",
+    title: "Web Development",
+    description: "Full-stack web applications built with modern technologies like React, Node.js, and Next.js. Fast, scalable, and pixel-perfect.",
   },
   {
-    icon: Plug,
-    title: "Integration",
-    description: "Seamlessly integrate robotic systems into your existing workflows and infrastructure for maximum productivity.",
+    icon: Palette,
+    title: "UI/UX Redesign",
+    description: "Breathe new life into your digital products with stunning redesigns that enhance user experience and boost conversions.",
   },
   {
-    icon: Users,
-    title: "Consulting",
-    description: "Expert guidance and strategic planning to help you leverage robotics technology for competitive advantage.",
+    icon: Zap,
+    title: "Automation",
+    description: "Automate repetitive tasks and workflows with intelligent solutions. Save time, reduce errors, and increase productivity.",
   },
   {
-    icon: Wrench,
-    title: "Maintenance",
-    description: "Comprehensive support and maintenance services to keep your robotic systems running at peak performance.",
+    icon: Smartphone,
+    title: "Mobile Apps",
+    description: "Native and cross-platform mobile applications that deliver exceptional user experiences on iOS and Android devices.",
   },
   {
-    icon: GraduationCap,
-    title: "Training",
-    description: "Professional training programs to equip your team with the skills needed to work alongside advanced robotics.",
+    icon: Lightbulb,
+    title: "Technical Consulting",
+    description: "Strategic guidance on technology stack, architecture decisions, and AI implementation to accelerate your digital transformation.",
   },
 ];
 
@@ -48,10 +48,10 @@ const Services = () => {
             </div>
           </div>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold tracking-tight text-gray-900 mb-4">
-            Comprehensive Robotics Solutions
+            Expert Development Services
           </h2>
           <p className="text-base sm:text-lg text-gray-600">
-            From concept to deployment, we provide end-to-end robotics services tailored to your business needs.
+            From AI-powered solutions to stunning web applications, I bring your ideas to life with cutting-edge technology.
           </p>
         </div>
 
