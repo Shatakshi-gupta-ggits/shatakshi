@@ -1,5 +1,6 @@
-
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
+import { Button } from "@/components/ui/button";
+import { ChevronDown } from "lucide-react";
 
 interface TestimonialProps {
   content: string;
@@ -41,13 +42,14 @@ const TestimonialCard = ({
   role,
   backgroundImage = "/background-section1.png"
 }: TestimonialProps) => {
-  return <div className="bg-cover bg-center rounded-lg p-8 h-full flex flex-col justify-between text-white transform transition-transform duration-300 hover:-translate-y-2 relative overflow-hidden" style={{
+  return <div className="bg-cover bg-center rounded-lg p-8 h-full flex flex-col justify-between text-white transform transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl relative overflow-hidden cursor-pointer group" style={{
     backgroundImage: `url('${backgroundImage}')`
   }}>
-      <div className="absolute top-0 right-0 w-24 h-24 bg-white z-10"></div>
+      <div className="absolute top-0 right-0 w-24 h-24 bg-white z-10 transition-all duration-500 group-hover:w-32 group-hover:h-32"></div>
+      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-500" />
       
       <div className="relative z-0">
-        <p className="text-xl mb-8 font-medium leading-relaxed pr-20">{`"${content}"`}</p>
+        <p className="text-xl mb-8 font-medium leading-relaxed pr-20 transition-transform duration-300 group-hover:scale-[1.02]">{`"${content}"`}</p>
         <div>
           <h4 className="font-semibold text-xl">{author}</h4>
           <p className="text-white/80">{role}</p>
@@ -58,8 +60,10 @@ const TestimonialCard = ({
 
 const Testimonials = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
+  const [showAll, setShowAll] = useState(false);
+  const displayedTestimonials = showAll ? testimonials : testimonials.slice(0, 2);
 
-  return <section className="py-12 bg-white relative" id="testimonials" ref={sectionRef}> {/* Reduced from py-20 */}
+  return <section className="py-12 bg-white relative" id="testimonials" ref={sectionRef}>
       <div className="section-container opacity-0 animate-on-scroll">
         <div className="flex items-center gap-4 mb-6">
           <div className="pulse-chip">
@@ -71,8 +75,21 @@ const Testimonials = () => {
         <h2 className="text-5xl font-display font-bold mb-12 text-left">What others say</h2>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {testimonials.map((testimonial, index) => <TestimonialCard key={index} content={testimonial.content} author={testimonial.author} role={testimonial.role} gradient={testimonial.gradient} backgroundImage={testimonial.backgroundImage} />)}
+          {displayedTestimonials.map((testimonial, index) => <TestimonialCard key={index} content={testimonial.content} author={testimonial.author} role={testimonial.role} gradient={testimonial.gradient} backgroundImage={testimonial.backgroundImage} />)}
         </div>
+
+        {testimonials.length > 2 && (
+          <div className="flex justify-center mt-12">
+            <Button
+              onClick={() => setShowAll(!showAll)}
+              className="bg-pulse-500 hover:bg-pulse-600 text-white px-8 py-6 text-lg transition-all duration-300 hover:scale-105"
+              size="lg"
+            >
+              {showAll ? "Show Less" : "View More Testimonials"}
+              <ChevronDown className={`w-5 h-5 ml-2 transition-transform duration-300 ${showAll ? "rotate-180" : ""}`} />
+            </Button>
+          </div>
+        )}
       </div>
     </section>;
 };

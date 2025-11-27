@@ -62,21 +62,21 @@ const Services = () => {
             return (
               <div
                 key={index}
-                className="group bg-white rounded-2xl p-6 sm:p-8 shadow-sm hover:shadow-elegant transition-all duration-300 animate-on-scroll border border-gray-100 hover:border-pulse-500/20"
+                className="group bg-white rounded-2xl p-6 sm:p-8 shadow-sm hover:shadow-elegant transition-all duration-500 animate-on-scroll border border-gray-100 hover:border-pulse-500/20 hover:-translate-y-2 cursor-pointer"
               >
                 <div className="mb-4 sm:mb-6">
-                  <div className="inline-flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-gradient-to-br from-pulse-500 to-pulse-600 text-white group-hover:scale-110 transition-transform duration-300">
-                    <IconComponent className="w-6 h-6 sm:w-7 sm:h-7" />
+                  <div className="inline-flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-gradient-to-br from-pulse-500 to-pulse-600 text-white group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 shadow-lg">
+                    <IconComponent className="w-6 h-6 sm:w-7 sm:h-7 group-hover:scale-110 transition-transform duration-300" />
                   </div>
                 </div>
-                <h3 className="text-xl sm:text-2xl font-display font-semibold text-gray-900 mb-3">
+                <h3 className="text-xl sm:text-2xl font-display font-semibold text-gray-900 mb-3 group-hover:text-pulse-500 transition-colors duration-300">
                   {service.title}
                 </h3>
                 <p className="text-gray-600 text-sm sm:text-base mb-6 leading-relaxed">
                   {service.description}
                 </p>
                 <Button 
-                  className="w-full sm:w-auto bg-pulse-500 hover:bg-pulse-600 text-white"
+                  className="w-full sm:w-auto bg-pulse-500 hover:bg-pulse-600 text-white transition-all duration-300 hover:scale-105"
                   size="lg"
                 >
                   Get Started

@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { ExternalLink, Github } from "lucide-react";
+import { ExternalLink, Github, ChevronDown } from "lucide-react";
 
 const projects = [
   {
@@ -30,8 +30,11 @@ const projects = [
 ];
 
 const Projects = () => {
+  const [showAll, setShowAll] = useState(false);
+  const displayedProjects = showAll ? projects : projects.slice(0, 2);
+
   return (
-    <section className="w-full py-12 sm:py-16 md:py-20 bg-white" id="projects">
+    <section className="w-full py-12 sm:py-16 md:py-20 bg-white relative" id="projects">
       <div className="container px-4 sm:px-6 lg:px-8 mx-auto">
         <div className="max-w-3xl mx-auto text-center mb-12 sm:mb-16 animate-on-scroll">
           <div className="inline-flex items-center justify-center mb-4">
@@ -49,17 +52,18 @@ const Projects = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
-          {projects.map((project, index) => (
+          {displayedProjects.map((project, index) => (
             <div
               key={index}
-              className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-elegant transition-all duration-300 animate-on-scroll border border-gray-100 hover:border-pulse-500/20"
+              className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-elegant transition-all duration-500 animate-on-scroll border border-gray-100 hover:border-pulse-500/20 hover:-translate-y-2 cursor-pointer"
             >
               <div className="aspect-video bg-gradient-to-br from-pulse-100 to-pulse-200 relative overflow-hidden">
                 <img 
                   src={project.image} 
                   alt={project.title}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                 />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </div>
               <div className="p-6 sm:p-8">
                 <h3 className="text-xl sm:text-2xl font-display font-semibold text-gray-900 mb-3">
@@ -80,7 +84,7 @@ const Projects = () => {
                 </div>
                 <div className="flex gap-3">
                   <Button 
-                    className="flex-1 bg-pulse-500 hover:bg-pulse-600 text-white"
+                    className="flex-1 bg-pulse-500 hover:bg-pulse-600 text-white transition-all duration-300 hover:scale-105"
                     size="lg"
                   >
                     <ExternalLink className="w-4 h-4 mr-2" />
@@ -88,7 +92,7 @@ const Projects = () => {
                   </Button>
                   <Button 
                     variant="outline"
-                    className="flex-1 border-pulse-500 text-pulse-500 hover:bg-pulse-50"
+                    className="flex-1 border-pulse-500 text-pulse-500 hover:bg-pulse-50 transition-all duration-300 hover:scale-105"
                     size="lg"
                   >
                     <Github className="w-4 h-4 mr-2" />
@@ -99,6 +103,19 @@ const Projects = () => {
             </div>
           ))}
         </div>
+
+        {projects.length > 2 && (
+          <div className="flex justify-center mt-12">
+            <Button
+              onClick={() => setShowAll(!showAll)}
+              className="bg-pulse-500 hover:bg-pulse-600 text-white px-8 py-6 text-lg transition-all duration-300 hover:scale-105"
+              size="lg"
+            >
+              {showAll ? "Show Less" : "View More Projects"}
+              <ChevronDown className={`w-5 h-5 ml-2 transition-transform duration-300 ${showAll ? "rotate-180" : ""}`} />
+            </Button>
+          </div>
+        )}
       </div>
     </section>
   );

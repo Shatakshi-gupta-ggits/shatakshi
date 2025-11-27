@@ -1,8 +1,8 @@
-
 import React, { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import { ArrowRight } from "lucide-react";
 import LottieAnimation from "./LottieAnimation";
+import ParticlesBackground from "./ParticlesBackground";
 
 const Hero = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -96,9 +96,12 @@ const Hero = () => {
         padding: isMobile ? '100px 12px 40px' : '120px 20px 60px'
       }}
     >
+      <div className="absolute inset-0 z-0">
+        <ParticlesBackground />
+      </div>
       <div className="absolute -top-[10%] -right-[5%] w-1/2 h-[70%] bg-pulse-gradient opacity-20 blur-3xl rounded-full"></div>
       
-      <div className="container px-4 sm:px-6 lg:px-8" ref={containerRef}>
+      <div className="container px-4 sm:px-6 lg:px-8 relative z-10" ref={containerRef}>
         <div className="flex flex-col lg:flex-row gap-6 lg:gap-12 items-center">
           <div className="w-full lg:w-1/2">
             <div 

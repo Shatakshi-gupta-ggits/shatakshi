@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { ShoppingCart, Wrench } from "lucide-react";
+import { ShoppingCart, Wrench, ChevronDown } from "lucide-react";
 
 const productsForSale = [
   {
@@ -34,8 +34,11 @@ const productsForSale = [
 ];
 
 const ProjectsForSale = () => {
+  const [showAll, setShowAll] = useState(false);
+  const displayedProducts = showAll ? productsForSale : productsForSale.slice(0, 2);
+
   return (
-    <section className="w-full py-12 sm:py-16 md:py-20 bg-gradient-to-b from-white to-gray-50" id="products">
+    <section className="w-full py-12 sm:py-16 md:py-20 bg-gradient-to-b from-white to-gray-50 relative" id="products">
       <div className="container px-4 sm:px-6 lg:px-8 mx-auto">
         <div className="max-w-3xl mx-auto text-center mb-12 sm:mb-16 animate-on-scroll">
           <div className="inline-flex items-center justify-center mb-4">
@@ -53,18 +56,19 @@ const ProjectsForSale = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
-          {productsForSale.map((product, index) => (
+          {displayedProducts.map((product, index) => (
             <div
               key={index}
-              className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-elegant transition-all duration-300 animate-on-scroll border border-gray-100 hover:border-pulse-500/20"
+              className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-elegant transition-all duration-500 animate-on-scroll border border-gray-100 hover:border-pulse-500/20 hover:-translate-y-2 cursor-pointer"
             >
               <div className="aspect-video bg-gradient-to-br from-pulse-100 to-pulse-200 relative overflow-hidden">
                 <img 
                   src={product.image} 
                   alt={product.title}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                 />
-                <div className="absolute top-4 right-4 bg-white px-4 py-2 rounded-full shadow-lg">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="absolute top-4 right-4 bg-white px-4 py-2 rounded-full shadow-lg group-hover:scale-110 transition-transform duration-300">
                   <span className="text-xl font-bold text-pulse-500">{product.price}</span>
                 </div>
               </div>
@@ -85,7 +89,7 @@ const ProjectsForSale = () => {
                 </div>
                 <div className="flex gap-3">
                   <Button 
-                    className="flex-1 bg-pulse-500 hover:bg-pulse-600 text-white"
+                    className="flex-1 bg-pulse-500 hover:bg-pulse-600 text-white transition-all duration-300 hover:scale-105"
                     size="lg"
                   >
                     <ShoppingCart className="w-4 h-4 mr-2" />
@@ -93,7 +97,7 @@ const ProjectsForSale = () => {
                   </Button>
                   <Button 
                     variant="outline"
-                    className="flex-1 border-pulse-500 text-pulse-500 hover:bg-pulse-50"
+                    className="flex-1 border-pulse-500 text-pulse-500 hover:bg-pulse-50 transition-all duration-300 hover:scale-105"
                     size="lg"
                   >
                     <Wrench className="w-4 h-4 mr-2" />
@@ -104,6 +108,19 @@ const ProjectsForSale = () => {
             </div>
           ))}
         </div>
+
+        {productsForSale.length > 2 && (
+          <div className="flex justify-center mt-12">
+            <Button
+              onClick={() => setShowAll(!showAll)}
+              className="bg-pulse-500 hover:bg-pulse-600 text-white px-8 py-6 text-lg transition-all duration-300 hover:scale-105"
+              size="lg"
+            >
+              {showAll ? "Show Less" : "View More Products"}
+              <ChevronDown className={`w-5 h-5 ml-2 transition-transform duration-300 ${showAll ? "rotate-180" : ""}`} />
+            </Button>
+          </div>
+        )}
       </div>
     </section>
   );

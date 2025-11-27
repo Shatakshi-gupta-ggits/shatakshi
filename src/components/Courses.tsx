@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Youtube, FileText, ExternalLink } from "lucide-react";
+import { Youtube, FileText, ExternalLink, ChevronDown } from "lucide-react";
 
 const courses = [
   {
@@ -34,8 +34,11 @@ const courses = [
 ];
 
 const Courses = () => {
+  const [showAll, setShowAll] = useState(false);
+  const displayedCourses = showAll ? courses : courses.slice(0, 2);
+
   return (
-    <section className="w-full py-12 sm:py-16 md:py-20 bg-white" id="courses">
+    <section className="w-full py-12 sm:py-16 md:py-20 bg-white relative" id="courses">
       <div className="container px-4 sm:px-6 lg:px-8 mx-auto">
         <div className="max-w-3xl mx-auto text-center mb-12 sm:mb-16 animate-on-scroll">
           <div className="inline-flex items-center justify-center mb-4">
@@ -53,18 +56,19 @@ const Courses = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
-          {courses.map((course, index) => (
+          {displayedCourses.map((course, index) => (
             <div
               key={index}
-              className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-elegant transition-all duration-300 animate-on-scroll border border-gray-100 hover:border-pulse-500/20"
+              className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-elegant transition-all duration-500 animate-on-scroll border border-gray-100 hover:border-pulse-500/20 hover:-translate-y-2 cursor-pointer"
             >
               <div className="aspect-video bg-gradient-to-br from-pulse-100 to-pulse-200 relative overflow-hidden">
                 <img 
                   src={course.image} 
                   alt={course.title}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                 />
-                <div className="absolute top-4 left-4 bg-red-600 text-white px-3 py-1 rounded-full text-sm font-medium flex items-center gap-1">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="absolute top-4 left-4 bg-red-600 text-white px-3 py-1 rounded-full text-sm font-medium flex items-center gap-1 group-hover:scale-110 transition-transform duration-300">
                   <Youtube className="w-4 h-4" />
                   Free
                 </div>
@@ -83,7 +87,7 @@ const Courses = () => {
                 </div>
                 <div className="flex flex-col gap-3">
                   <Button 
-                    className="w-full bg-pulse-500 hover:bg-pulse-600 text-white"
+                    className="w-full bg-pulse-500 hover:bg-pulse-600 text-white transition-all duration-300 hover:scale-105"
                     size="lg"
                   >
                     <Youtube className="w-4 h-4 mr-2" />
@@ -92,7 +96,7 @@ const Courses = () => {
                   <div className="flex gap-3">
                     <Button 
                       variant="outline"
-                      className="flex-1 border-gray-300 text-gray-700 hover:bg-gray-50"
+                      className="flex-1 border-gray-300 text-gray-700 hover:bg-gray-50 transition-all duration-300 hover:scale-105"
                       size="lg"
                     >
                       <FileText className="w-4 h-4 mr-2" />
@@ -100,7 +104,7 @@ const Courses = () => {
                     </Button>
                     <Button 
                       variant="outline"
-                      className="flex-1 border-gray-300 text-gray-700 hover:bg-gray-50"
+                      className="flex-1 border-gray-300 text-gray-700 hover:bg-gray-50 transition-all duration-300 hover:scale-105"
                       size="lg"
                     >
                       <ExternalLink className="w-4 h-4 mr-2" />
@@ -112,6 +116,19 @@ const Courses = () => {
             </div>
           ))}
         </div>
+
+        {courses.length > 2 && (
+          <div className="flex justify-center mt-12">
+            <Button
+              onClick={() => setShowAll(!showAll)}
+              className="bg-pulse-500 hover:bg-pulse-600 text-white px-8 py-6 text-lg transition-all duration-300 hover:scale-105"
+              size="lg"
+            >
+              {showAll ? "Show Less" : "View More Courses"}
+              <ChevronDown className={`w-5 h-5 ml-2 transition-transform duration-300 ${showAll ? "rotate-180" : ""}`} />
+            </Button>
+          </div>
+        )}
       </div>
     </section>
   );
