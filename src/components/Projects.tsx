@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ExternalLink, Github, ChevronDown } from "lucide-react";
+import { useScrollAnimation, scrollAnimationClasses } from "@/hooks/useScrollAnimation";
+import { cn } from "@/lib/utils";
 
 const projects = [
   {
@@ -29,78 +31,105 @@ const projects = [
   },
 ];
 
+const ProjectCard = ({ project, index }: { project: typeof projects[0]; index: number }) => {
+  const { ref, isVisible } = useScrollAnimation({ threshold: 0.1 });
+  const [imageLoaded, setImageLoaded] = useState(false);
+  
+  return (
+    <div
+      ref={ref}
+      className={cn(
+        "group bg-card rounded-2xl overflow-hidden shadow-sm hover:shadow-elegant transition-all duration-500 border border-border hover:border-pulse-500/20 hover:-translate-y-2 cursor-pointer",
+        isVisible ? scrollAnimationClasses.fadeUpVisible : scrollAnimationClasses.fadeUp
+      )}
+      style={{ transitionDelay: `${index * 150}ms` }}
+    >
+      <div className="aspect-video bg-gradient-to-br from-pulse-100 to-pulse-200 dark:from-pulse-900/30 dark:to-pulse-800/30 relative overflow-hidden">
+        {!imageLoaded && (
+          <div className="absolute inset-0 bg-gradient-to-r from-muted via-muted/50 to-muted animate-pulse" />
+        )}
+        <img 
+          src={project.image} 
+          alt={project.title}
+          className={cn(
+            "w-full h-full object-cover group-hover:scale-110 transition-all duration-700",
+            imageLoaded ? "opacity-100" : "opacity-0"
+          )}
+          onLoad={() => setImageLoaded(true)}
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+      </div>
+      <div className="p-6 sm:p-8">
+        <h3 className="text-xl sm:text-2xl font-display font-semibold text-foreground mb-3 group-hover:text-pulse-500 transition-colors">
+          {project.title}
+        </h3>
+        <p className="text-muted-foreground text-sm sm:text-base mb-4 leading-relaxed">
+          {project.description}
+        </p>
+        <div className="flex flex-wrap gap-2 mb-6">
+          {project.tech.map((tech, i) => (
+            <span
+              key={i}
+              className="px-3 py-1 text-xs font-medium bg-pulse-50 dark:bg-pulse-900/30 text-pulse-700 dark:text-pulse-300 rounded-full"
+            >
+              {tech}
+            </span>
+          ))}
+        </div>
+        <div className="flex gap-3">
+          <Button 
+            className="flex-1 bg-pulse-500 hover:bg-pulse-600 text-white transition-all duration-300 hover:scale-105"
+            size="lg"
+          >
+            <ExternalLink className="w-4 h-4 mr-2" />
+            View Live
+          </Button>
+          <Button 
+            variant="outline"
+            className="flex-1 border-pulse-500 text-pulse-500 hover:bg-pulse-50 dark:hover:bg-pulse-900/30 transition-all duration-300 hover:scale-105"
+            size="lg"
+          >
+            <Github className="w-4 h-4 mr-2" />
+            Code
+          </Button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const Projects = () => {
   const [showAll, setShowAll] = useState(false);
   const displayedProjects = showAll ? projects : projects.slice(0, 2);
+  const { ref: headerRef, isVisible: headerVisible } = useScrollAnimation();
 
   return (
-    <section className="w-full py-12 sm:py-16 md:py-20 bg-white relative" id="projects">
+    <section className="w-full py-12 sm:py-16 md:py-20 bg-background relative" id="projects">
       <div className="container px-4 sm:px-6 lg:px-8 mx-auto">
-        <div className="max-w-3xl mx-auto text-center mb-12 sm:mb-16 animate-on-scroll">
+        <div 
+          ref={headerRef}
+          className={cn(
+            "max-w-3xl mx-auto text-center mb-12 sm:mb-16 transition-all duration-700",
+            headerVisible ? scrollAnimationClasses.fadeUpVisible : scrollAnimationClasses.fadeUp
+          )}
+        >
           <div className="inline-flex items-center justify-center mb-4">
             <div className="pulse-chip">
               <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-pulse-500 text-white mr-2">03</span>
               <span>Portfolio</span>
             </div>
           </div>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold tracking-tight text-gray-900 mb-4">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold tracking-tight text-foreground mb-4">
             Featured Projects
           </h2>
-          <p className="text-base sm:text-lg text-gray-600">
+          <p className="text-base sm:text-lg text-muted-foreground">
             Award-winning applications and enterprise solutions built with cutting-edge technologies.
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
           {displayedProjects.map((project, index) => (
-            <div
-              key={index}
-              className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-elegant transition-all duration-500 animate-on-scroll border border-gray-100 hover:border-pulse-500/20 hover:-translate-y-2 cursor-pointer"
-            >
-              <div className="aspect-video bg-gradient-to-br from-pulse-100 to-pulse-200 relative overflow-hidden">
-                <img 
-                  src={project.image} 
-                  alt={project.title}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              </div>
-              <div className="p-6 sm:p-8">
-                <h3 className="text-xl sm:text-2xl font-display font-semibold text-gray-900 mb-3">
-                  {project.title}
-                </h3>
-                <p className="text-gray-600 text-sm sm:text-base mb-4 leading-relaxed">
-                  {project.description}
-                </p>
-                <div className="flex flex-wrap gap-2 mb-6">
-                  {project.tech.map((tech, i) => (
-                    <span
-                      key={i}
-                      className="px-3 py-1 text-xs font-medium bg-pulse-50 text-pulse-700 rounded-full"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-                <div className="flex gap-3">
-                  <Button 
-                    className="flex-1 bg-pulse-500 hover:bg-pulse-600 text-white transition-all duration-300 hover:scale-105"
-                    size="lg"
-                  >
-                    <ExternalLink className="w-4 h-4 mr-2" />
-                    View Live
-                  </Button>
-                  <Button 
-                    variant="outline"
-                    className="flex-1 border-pulse-500 text-pulse-500 hover:bg-pulse-50 transition-all duration-300 hover:scale-105"
-                    size="lg"
-                  >
-                    <Github className="w-4 h-4 mr-2" />
-                    Code
-                  </Button>
-                </div>
-              </div>
-            </div>
+            <ProjectCard key={index} project={project} index={index} />
           ))}
         </div>
 
@@ -108,11 +137,14 @@ const Projects = () => {
           <div className="flex justify-center mt-12">
             <Button
               onClick={() => setShowAll(!showAll)}
-              className="bg-pulse-500 hover:bg-pulse-600 text-white px-8 py-6 text-lg transition-all duration-300 hover:scale-105"
+              className="bg-pulse-500 hover:bg-pulse-600 text-white px-8 py-6 text-lg transition-all duration-300 hover:scale-105 group"
               size="lg"
             >
               {showAll ? "Show Less" : "View More Projects"}
-              <ChevronDown className={`w-5 h-5 ml-2 transition-transform duration-300 ${showAll ? "rotate-180" : ""}`} />
+              <ChevronDown className={cn(
+                "w-5 h-5 ml-2 transition-transform duration-300",
+                showAll && "rotate-180"
+              )} />
             </Button>
           </div>
         )}

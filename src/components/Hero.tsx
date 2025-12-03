@@ -11,7 +11,6 @@ const Hero = () => {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    // Check if mobile on mount and when window resizes
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768);
     };
@@ -30,18 +29,12 @@ const Hero = () => {
   }, []);
 
   useEffect(() => {
-    // Skip effect on mobile
     if (isMobile) return;
     
     const handleMouseMove = (e: MouseEvent) => {
       if (!containerRef.current || !imageRef.current) return;
       
-      const {
-        left,
-        top,
-        width,
-        height
-      } = containerRef.current.getBoundingClientRect();
+      const { left, top, width, height } = containerRef.current.getBoundingClientRect();
       const x = (e.clientX - left) / width - 0.5;
       const y = (e.clientY - top) / height - 0.5;
 
@@ -68,7 +61,6 @@ const Hero = () => {
   }, [isMobile]);
   
   useEffect(() => {
-    // Skip parallax on mobile
     if (isMobile) return;
     
     const handleScroll = () => {
@@ -88,18 +80,19 @@ const Hero = () => {
   
   return (
     <section 
-      className="overflow-hidden relative bg-cover" 
+      className="overflow-hidden relative bg-background" 
       id="hero" 
       style={{
-        backgroundImage: 'url("/Header-background.webp")',
-        backgroundPosition: 'center 30%', 
         padding: isMobile ? '100px 12px 40px' : '120px 20px 60px'
       }}
     >
+      {/* Background gradient overlay for dark mode */}
+      <div className="absolute inset-0 bg-gradient-to-br from-pulse-500/5 via-background to-background dark:from-pulse-500/10 dark:via-background dark:to-background" />
+      
       <div className="absolute inset-0 z-0">
         <ParticlesBackground />
       </div>
-      <div className="absolute -top-[10%] -right-[5%] w-1/2 h-[70%] bg-pulse-gradient opacity-20 blur-3xl rounded-full"></div>
+      <div className="absolute -top-[10%] -right-[5%] w-1/2 h-[70%] bg-pulse-gradient opacity-20 dark:opacity-10 blur-3xl rounded-full"></div>
       
       <div className="container px-4 sm:px-6 lg:px-8 relative z-10" ref={containerRef}>
         <div className="flex flex-col lg:flex-row gap-6 lg:gap-12 items-center">
@@ -113,15 +106,16 @@ const Hero = () => {
             </div>
             
             <h1 
-              className="section-title text-3xl sm:text-4xl lg:text-5xl xl:text-6xl leading-tight opacity-0 animate-fade-in" 
+              className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl leading-tight opacity-0 animate-fade-in font-display font-bold tracking-tight text-foreground" 
               style={{ animationDelay: "0.3s" }}
             >
-              Hi, I'm Shatakshi<br className="hidden sm:inline" />Full-Stack Developer & AI Expert
+              Hi, I'm Shatakshi<br className="hidden sm:inline" />
+              <span className="text-pulse-500">Full-Stack Developer</span> & AI Expert
             </h1>
             
             <p 
               style={{ animationDelay: "0.5s" }} 
-              className="section-subtitle mt-3 sm:mt-6 mb-4 sm:mb-8 leading-relaxed opacity-0 animate-fade-in text-gray-950 font-normal text-base sm:text-lg text-left"
+              className="mt-3 sm:mt-6 mb-4 sm:mb-8 leading-relaxed opacity-0 animate-fade-in text-muted-foreground font-normal text-base sm:text-lg text-left max-w-xl"
             >
               Transforming ideas into powerful applications. Specialized in AI integration, cloud architecture, and scalable solutions.
             </p>
@@ -132,21 +126,16 @@ const Hero = () => {
             >
               <a 
                 href="#contact" 
-                className="flex items-center justify-center group w-full sm:w-auto text-center" 
-                style={{
-                  backgroundColor: '#FE5C02',
-                  borderRadius: '1440px',
-                  boxSizing: 'border-box',
-                  color: '#FFFFFF',
-                  cursor: 'pointer',
-                  fontSize: '14px',
-                  lineHeight: '20px',
-                  padding: '16px 24px',
-                  border: '1px solid white',
-                }}
+                className="flex items-center justify-center group w-full sm:w-auto text-center bg-pulse-500 hover:bg-pulse-600 text-white rounded-full px-8 py-4 font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg"
               >
                 Hire Me
                 <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
+              </a>
+              <a 
+                href="#projects" 
+                className="flex items-center justify-center group w-full sm:w-auto text-center bg-secondary hover:bg-secondary/80 text-foreground rounded-full px-8 py-4 font-medium transition-all duration-300 hover:scale-105 border border-border"
+              >
+                View Projects
               </a>
             </div>
           </div>
@@ -163,24 +152,24 @@ const Hero = () => {
               </div>
             ) : (
               <>
-              <div className="absolute inset-0 bg-dark-900 rounded-2xl sm:rounded-3xl -z-10 shadow-xl"></div>
-              <div className="relative transition-all duration-500 ease-out overflow-hidden rounded-2xl sm:rounded-3xl shadow-2xl">
-                <img 
-                  ref={imageRef} 
-                  src="/lovable-uploads/5663820f-6c97-4492-9210-9eaa1a8dc415.png" 
-                  alt="Atlas Robot" 
-                  className="w-full h-auto object-cover transition-transform duration-500 ease-out" 
-                  style={{ transformStyle: 'preserve-3d' }} 
-                />
-                <div className="absolute inset-0" style={{ backgroundImage: 'url("/hero-image.jpg")', backgroundSize: 'cover', backgroundPosition: 'center', mixBlendMode: 'overlay', opacity: 0.5 }}></div>
-              </div>
+                <div className="absolute inset-0 bg-card rounded-2xl sm:rounded-3xl -z-10 shadow-xl"></div>
+                <div className="relative transition-all duration-500 ease-out overflow-hidden rounded-2xl sm:rounded-3xl shadow-2xl">
+                  <img 
+                    ref={imageRef} 
+                    src="/lovable-uploads/5663820f-6c97-4492-9210-9eaa1a8dc415.png" 
+                    alt="Portfolio showcase" 
+                    className="w-full h-auto object-cover transition-transform duration-500 ease-out" 
+                    style={{ transformStyle: 'preserve-3d' }} 
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
+                </div>
               </>
             )}
           </div>
         </div>
       </div>
       
-      <div className="hidden lg:block absolute bottom-0 left-1/4 w-64 h-64 bg-pulse-100/30 rounded-full blur-3xl -z-10 parallax" data-speed="0.05"></div>
+      <div className="hidden lg:block absolute bottom-0 left-1/4 w-64 h-64 bg-pulse-100/30 dark:bg-pulse-500/10 rounded-full blur-3xl -z-10 parallax" data-speed="0.05"></div>
     </section>
   );
 };
