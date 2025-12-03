@@ -9,6 +9,9 @@ import ProjectsForSale from "@/components/ProjectsForSale";
 import Courses from "@/components/Courses";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
+import AchievementsGallery from "@/components/AchievementsGallery";
+import CustomCursor from "@/components/CustomCursor";
+import PageLoader from "@/components/PageLoader";
 
 const Index = () => {
   // Initialize intersection observer to detect when elements enter viewport
@@ -57,19 +60,24 @@ const Index = () => {
   }, []);
 
   return (
-    <div className="min-h-screen">
-      <Navbar />
-      <main className="space-y-4 sm:space-y-8">
-        <Hero />
-        <Services />
-        <Projects />
-        <Testimonials />
-        <ProjectsForSale />
-        <Courses />
-        <Contact />
-      </main>
-      <Footer />
-    </div>
+    <>
+      <PageLoader />
+      <CustomCursor />
+      <div className="min-h-screen cursor-none md:cursor-none">
+        <Navbar />
+        <main className="space-y-4 sm:space-y-8">
+          <Hero />
+          <Services />
+          <Projects />
+          <AchievementsGallery />
+          <Testimonials />
+          <ProjectsForSale />
+          <Courses />
+          <Contact />
+        </main>
+        <Footer />
+      </div>
+    </>
   );
 };
 
