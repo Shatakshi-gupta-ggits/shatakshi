@@ -13,8 +13,13 @@ import AchievementsGallery from "@/components/AchievementsGallery";
 import CustomCursor from "@/components/CustomCursor";
 import PageLoader from "@/components/PageLoader";
 import SectionTransition from "@/components/SectionTransition";
+import PersonaSelector from "@/components/PersonaSelector";
+import PersonaToggle from "@/components/PersonaToggle";
+import { PersonaProvider, usePersona } from "@/contexts/PersonaContext";
 
-const Index = () => {
+const IndexContent = () => {
+  const { persona, isSelected } = usePersona();
+
   // Initialize intersection observer to detect when elements enter viewport
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -60,36 +65,55 @@ const Index = () => {
     });
   }, []);
 
+  const showFreelancer = persona === "freelancer" || !isSelected;
+  const showTutor = persona === "tutor" || !isSelected;
+
   return (
     <>
       <PageLoader />
+      <PersonaSelector />
+      <PersonaToggle />
       <CustomCursor />
-      <div className="min-h-screen cursor-none md:cursor-none">
+      <div className={`min-h-screen cursor-none md:cursor-none ${!isSelected ? 'hidden' : ''}`}>
         <Navbar />
         <main className="space-y-0">
           <SectionTransition>
             <Hero />
           </SectionTransition>
-          <SectionTransition delay={100}>
-            <Services />
-          </SectionTransition>
-          <SectionTransition delay={100}>
-            <Projects />
-          </SectionTransition>
-          <SectionTransition delay={100}>
-            <AchievementsGallery />
-          </SectionTransition>
+          
+          {/* Freelancer sections */}
+          {showFreelancer && (
+            <>
+              <SectionTransition delay={100}>
+                <Services />
+              </SectionTransition>
+              <SectionTransition delay={100}>
+                <Projects />
+              </SectionTransition>
+              <SectionTransition delay={100}>
+                <AchievementsGallery />
+              </SectionTransition>
+              <SectionTransition delay={100}>
+                <ProjectsForSale />
+              </SectionTransition>
+            </>
+          )}
+
+          {/* Tutor sections */}
+          {showTutor && (
+            <>
+              <SectionTransition delay={100}>
+                <Tutoring />
+              </SectionTransition>
+              <SectionTransition delay={100}>
+                <Courses />
+              </SectionTransition>
+            </>
+          )}
+
+          {/* Shared sections */}
           <SectionTransition delay={100}>
             <Testimonials />
-          </SectionTransition>
-          <SectionTransition delay={100}>
-            <ProjectsForSale />
-          </SectionTransition>
-          <SectionTransition delay={100}>
-            <Courses />
-          </SectionTransition>
-          <SectionTransition delay={100}>
-            <Tutoring />
           </SectionTransition>
           <SectionTransition delay={100}>
             <Contact />
@@ -98,6 +122,14 @@ const Index = () => {
         <Footer />
       </div>
     </>
+  );
+};
+
+const Index = () => {
+  return (
+    <PersonaProvider>
+      <IndexContent />
+    </PersonaProvider>
   );
 };
 
