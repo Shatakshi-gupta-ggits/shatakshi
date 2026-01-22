@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Sparkles, Code, Palette, Zap, Smartphone, Lightbulb } from "lucide-react";
 import { useScrollAnimation, scrollAnimationClasses } from "@/hooks/useScrollAnimation";
 import { cn } from "@/lib/utils";
+import AutoCarousel from "./AutoCarousel";
 
 const services = [
   {
@@ -38,17 +39,11 @@ const services = [
 ];
 
 const ServiceCard = ({ service, index }: { service: typeof services[0]; index: number }) => {
-  const { ref, isVisible } = useScrollAnimation({ threshold: 0.1 });
   const IconComponent = service.icon;
   
   return (
     <div
-      ref={ref}
-      className={cn(
-        "group bg-card rounded-2xl p-6 sm:p-8 shadow-sm hover:shadow-elegant transition-all duration-500 border border-border hover:border-pulse-500/20 hover:-translate-y-2 cursor-pointer",
-        isVisible ? scrollAnimationClasses.scaleInVisible : scrollAnimationClasses.scaleIn
-      )}
-      style={{ transitionDelay: `${index * 100}ms` }}
+      className="group bg-card rounded-2xl p-6 sm:p-8 shadow-sm hover:shadow-elegant transition-all duration-500 border border-border hover:border-pulse-500/20 cursor-pointer min-w-[320px] sm:min-w-[380px]"
     >
       <div className="mb-4 sm:mb-6">
         <div className="inline-flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-gradient-to-br from-pulse-500 to-pulse-600 text-white group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 shadow-lg">
@@ -75,7 +70,7 @@ const Services = () => {
   const { ref: headerRef, isVisible: headerVisible } = useScrollAnimation();
 
   return (
-    <section className="w-full py-12 sm:py-16 md:py-20 bg-gradient-to-b from-background to-secondary/30" id="services">
+    <section className="w-full py-12 sm:py-16 md:py-20 bg-gradient-to-b from-background to-secondary/30 overflow-hidden" id="services">
       <div className="container px-4 sm:px-6 lg:px-8 mx-auto">
         {/* Header */}
         <div 
@@ -99,12 +94,12 @@ const Services = () => {
           </p>
         </div>
 
-        {/* Services Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+        {/* Auto-moving Carousel */}
+        <AutoCarousel itemClassName="w-[320px] sm:w-[380px]">
           {services.map((service, index) => (
             <ServiceCard key={index} service={service} index={index} />
           ))}
-        </div>
+        </AutoCarousel>
       </div>
     </section>
   );

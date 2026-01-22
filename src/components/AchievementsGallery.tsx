@@ -1,6 +1,8 @@
 import React, { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { ChevronDown, X, ChevronLeft, ChevronRight, Award, Trophy, Medal } from "lucide-react";
+import { X, ChevronLeft, ChevronRight, Award, Trophy, Medal } from "lucide-react";
+import { useScrollAnimation, scrollAnimationClasses } from "@/hooks/useScrollAnimation";
+import { cn } from "@/lib/utils";
+import AutoCarousel from "./AutoCarousel";
 
 const achievements = [
   {
@@ -47,12 +49,69 @@ const achievements = [
   },
 ];
 
+const AchievementCard = ({ 
+  achievement, 
+  index,
+  onOpen,
+  loadedImages,
+  onImageLoad 
+}: { 
+  achievement: typeof achievements[0]; 
+  index: number;
+  onOpen: (index: number) => void;
+  loadedImages: Set<number>;
+  onImageLoad: (index: number) => void;
+}) => {
+  const IconComponent = achievement.icon;
+  const isLoaded = loadedImages.has(index);
+  
+  return (
+    <div
+      className="group bg-card rounded-2xl overflow-hidden shadow-sm hover:shadow-elegant transition-all duration-500 border border-border hover:border-pulse-500/20 cursor-pointer min-w-[300px] sm:min-w-[360px]"
+      onClick={() => onOpen(index)}
+    >
+      <div className="aspect-video bg-gradient-to-br from-pulse-100 to-pulse-200 dark:from-pulse-900/30 dark:to-pulse-800/30 relative overflow-hidden">
+        {!isLoaded && (
+          <div className="absolute inset-0 bg-gradient-to-r from-muted via-muted/50 to-muted animate-pulse" />
+        )}
+        <img 
+          src={achievement.image} 
+          alt={achievement.title}
+          className={cn(
+            "w-full h-full object-cover group-hover:scale-110 transition-all duration-700",
+            isLoaded ? "opacity-100" : "opacity-0"
+          )}
+          onLoad={() => onImageLoad(index)}
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+        
+        {/* Category badge */}
+        <div className="absolute top-4 left-4 px-3 py-1 bg-background/90 dark:bg-background/80 backdrop-blur-sm rounded-full text-xs font-medium text-pulse-600 dark:text-pulse-400">
+          {achievement.category}
+        </div>
+        
+        {/* Icon overlay */}
+        <div className="absolute bottom-4 right-4 w-12 h-12 bg-pulse-500 rounded-full flex items-center justify-center transform translate-y-16 group-hover:translate-y-0 transition-transform duration-300">
+          <IconComponent className="w-6 h-6 text-white" />
+        </div>
+      </div>
+      
+      <div className="p-6">
+        <h3 className="text-lg sm:text-xl font-display font-semibold text-foreground mb-2 group-hover:text-pulse-600 dark:group-hover:text-pulse-400 transition-colors duration-300">
+          {achievement.title}
+        </h3>
+        <p className="text-muted-foreground text-sm leading-relaxed line-clamp-2">
+          {achievement.description}
+        </p>
+      </div>
+    </div>
+  );
+};
+
 const AchievementsGallery = () => {
-  const [showAll, setShowAll] = useState(false);
   const [selectedImage, setSelectedImage] = useState<number | null>(null);
   const [loadedImages, setLoadedImages] = useState<Set<number>>(new Set());
-
-  const displayedAchievements = showAll ? achievements : achievements.slice(0, 3);
+  const { ref: headerRef, isVisible: headerVisible } = useScrollAnimation();
 
   const handleImageLoad = (index: number) => {
     setLoadedImages(prev => new Set(prev).add(index));
@@ -77,90 +136,48 @@ const AchievementsGallery = () => {
   };
 
   return (
-    <section className="w-full py-12 sm:py-16 md:py-20 bg-gradient-to-b from-gray-50 to-white relative overflow-hidden" id="achievements">
+    <section className="w-full py-12 sm:py-16 md:py-20 bg-gradient-to-b from-secondary/30 to-background relative overflow-hidden" id="achievements">
       {/* Background decoration */}
-      <div className="absolute top-0 left-0 w-full h-full">
+      <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
         <div className="absolute top-20 left-10 w-32 h-32 bg-pulse-500/10 rounded-full blur-3xl animate-pulse" />
         <div className="absolute bottom-20 right-10 w-40 h-40 bg-pulse-400/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: "1s" }} />
       </div>
 
       <div className="container px-4 sm:px-6 lg:px-8 mx-auto relative z-10">
-        <div className="max-w-3xl mx-auto text-center mb-12 sm:mb-16 animate-on-scroll">
+        <div 
+          ref={headerRef}
+          className={cn(
+            "max-w-3xl mx-auto text-center mb-12 sm:mb-16 transition-all duration-700",
+            headerVisible ? scrollAnimationClasses.fadeUpVisible : scrollAnimationClasses.fadeUp
+          )}
+        >
           <div className="inline-flex items-center justify-center mb-4">
             <div className="pulse-chip">
-              <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-pulse-500 text-white mr-2">07</span>
+              <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-pulse-500 text-white mr-2">04</span>
               <span>Achievements</span>
             </div>
           </div>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold tracking-tight text-gray-900 mb-4">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold tracking-tight text-foreground mb-4">
             Milestones & Recognition
           </h2>
-          <p className="text-base sm:text-lg text-gray-600">
+          <p className="text-base sm:text-lg text-muted-foreground">
             A showcase of awards, certifications, and professional achievements.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-          {displayedAchievements.map((achievement, index) => {
-            const IconComponent = achievement.icon;
-            const isLoaded = loadedImages.has(index);
-            
-            return (
-              <div
-                key={index}
-                className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-elegant transition-all duration-500 animate-on-scroll border border-gray-100 hover:border-pulse-500/20 hover:-translate-y-2 cursor-pointer"
-                onClick={() => openLightbox(index)}
-                style={{ animationDelay: `${index * 0.1}s` }}
-              >
-                <div className="aspect-video bg-gradient-to-br from-pulse-100 to-pulse-200 relative overflow-hidden">
-                  {/* Loading skeleton */}
-                  {!isLoaded && (
-                    <div className="absolute inset-0 bg-gradient-to-r from-gray-200 via-gray-100 to-gray-200 animate-pulse" />
-                  )}
-                  <img 
-                    src={achievement.image} 
-                    alt={achievement.title}
-                    className={`w-full h-full object-cover group-hover:scale-110 transition-all duration-700 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}
-                    onLoad={() => handleImageLoad(index)}
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  
-                  {/* Category badge */}
-                  <div className="absolute top-4 left-4 px-3 py-1 bg-white/90 backdrop-blur-sm rounded-full text-xs font-medium text-pulse-600">
-                    {achievement.category}
-                  </div>
-                  
-                  {/* Icon overlay */}
-                  <div className="absolute bottom-4 right-4 w-12 h-12 bg-pulse-500 rounded-full flex items-center justify-center transform translate-y-16 group-hover:translate-y-0 transition-transform duration-300">
-                    <IconComponent className="w-6 h-6 text-white" />
-                  </div>
-                </div>
-                
-                <div className="p-6">
-                  <h3 className="text-lg sm:text-xl font-display font-semibold text-gray-900 mb-2 group-hover:text-pulse-600 transition-colors duration-300">
-                    {achievement.title}
-                  </h3>
-                  <p className="text-gray-600 text-sm leading-relaxed">
-                    {achievement.description}
-                  </p>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-
-        {achievements.length > 3 && (
-          <div className="flex justify-center mt-12">
-            <Button
-              onClick={() => setShowAll(!showAll)}
-              className="bg-pulse-500 hover:bg-pulse-600 text-white px-8 py-6 text-lg transition-all duration-300 hover:scale-105 group"
-              size="lg"
-            >
-              {showAll ? "Show Less" : "View All Achievements"}
-              <ChevronDown className={`w-5 h-5 ml-2 transition-transform duration-300 ${showAll ? "rotate-180" : ""} group-hover:animate-bounce`} />
-            </Button>
-          </div>
-        )}
+        {/* Auto-moving Carousel */}
+        <AutoCarousel itemClassName="w-[300px] sm:w-[360px]">
+          {achievements.map((achievement, index) => (
+            <AchievementCard 
+              key={index} 
+              achievement={achievement} 
+              index={index}
+              onOpen={openLightbox}
+              loadedImages={loadedImages}
+              onImageLoad={handleImageLoad}
+            />
+          ))}
+        </AutoCarousel>
       </div>
 
       {/* Lightbox Modal */}

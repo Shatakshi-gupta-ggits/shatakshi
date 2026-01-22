@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { ExternalLink, Github, ChevronDown } from "lucide-react";
+import { ExternalLink, Github } from "lucide-react";
 import { useScrollAnimation, scrollAnimationClasses } from "@/hooks/useScrollAnimation";
 import { cn } from "@/lib/utils";
+import AutoCarousel from "./AutoCarousel";
 
 const projects = [
   {
@@ -31,19 +32,11 @@ const projects = [
   },
 ];
 
-const ProjectCard = ({ project, index }: { project: typeof projects[0]; index: number }) => {
-  const { ref, isVisible } = useScrollAnimation({ threshold: 0.1 });
+const ProjectCard = ({ project }: { project: typeof projects[0] }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
   
   return (
-    <div
-      ref={ref}
-      className={cn(
-        "group bg-card rounded-2xl overflow-hidden shadow-sm hover:shadow-elegant transition-all duration-500 border border-border hover:border-pulse-500/20 hover:-translate-y-2 cursor-pointer",
-        isVisible ? scrollAnimationClasses.fadeUpVisible : scrollAnimationClasses.fadeUp
-      )}
-      style={{ transitionDelay: `${index * 150}ms` }}
-    >
+    <div className="group bg-card rounded-2xl overflow-hidden shadow-sm hover:shadow-elegant transition-all duration-500 border border-border hover:border-pulse-500/20 cursor-pointer min-w-[340px] sm:min-w-[420px]">
       <div className="aspect-video bg-gradient-to-br from-pulse-100 to-pulse-200 dark:from-pulse-900/30 dark:to-pulse-800/30 relative overflow-hidden">
         {!imageLoaded && (
           <div className="absolute inset-0 bg-gradient-to-r from-muted via-muted/50 to-muted animate-pulse" />
@@ -63,11 +56,11 @@ const ProjectCard = ({ project, index }: { project: typeof projects[0]; index: n
         <h3 className="text-xl sm:text-2xl font-display font-semibold text-foreground mb-3 group-hover:text-pulse-500 transition-colors">
           {project.title}
         </h3>
-        <p className="text-muted-foreground text-sm sm:text-base mb-4 leading-relaxed">
+        <p className="text-muted-foreground text-sm sm:text-base mb-4 leading-relaxed line-clamp-2">
           {project.description}
         </p>
         <div className="flex flex-wrap gap-2 mb-6">
-          {project.tech.map((tech, i) => (
+          {project.tech.slice(0, 3).map((tech, i) => (
             <span
               key={i}
               className="px-3 py-1 text-xs font-medium bg-pulse-50 dark:bg-pulse-900/30 text-pulse-700 dark:text-pulse-300 rounded-full"
@@ -75,6 +68,11 @@ const ProjectCard = ({ project, index }: { project: typeof projects[0]; index: n
               {tech}
             </span>
           ))}
+          {project.tech.length > 3 && (
+            <span className="px-3 py-1 text-xs font-medium bg-secondary text-muted-foreground rounded-full">
+              +{project.tech.length - 3}
+            </span>
+          )}
         </div>
         <div className="flex gap-3">
           <Button 
@@ -99,12 +97,10 @@ const ProjectCard = ({ project, index }: { project: typeof projects[0]; index: n
 };
 
 const Projects = () => {
-  const [showAll, setShowAll] = useState(false);
-  const displayedProjects = showAll ? projects : projects.slice(0, 2);
   const { ref: headerRef, isVisible: headerVisible } = useScrollAnimation();
 
   return (
-    <section className="w-full py-12 sm:py-16 md:py-20 bg-background relative" id="projects">
+    <section className="w-full py-12 sm:py-16 md:py-20 bg-background relative overflow-hidden" id="projects">
       <div className="container px-4 sm:px-6 lg:px-8 mx-auto">
         <div 
           ref={headerRef}
@@ -127,27 +123,12 @@ const Projects = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
-          {displayedProjects.map((project, index) => (
-            <ProjectCard key={index} project={project} index={index} />
+        {/* Auto-moving Carousel */}
+        <AutoCarousel itemClassName="w-[340px] sm:w-[420px]">
+          {projects.map((project, index) => (
+            <ProjectCard key={index} project={project} />
           ))}
-        </div>
-
-        {projects.length > 2 && (
-          <div className="flex justify-center mt-12">
-            <Button
-              onClick={() => setShowAll(!showAll)}
-              className="bg-pulse-500 hover:bg-pulse-600 text-white px-8 py-6 text-lg transition-all duration-300 hover:scale-105 group"
-              size="lg"
-            >
-              {showAll ? "Show Less" : "View More Projects"}
-              <ChevronDown className={cn(
-                "w-5 h-5 ml-2 transition-transform duration-300",
-                showAll && "rotate-180"
-              )} />
-            </Button>
-          </div>
-        )}
+        </AutoCarousel>
       </div>
     </section>
   );
