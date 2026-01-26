@@ -4,6 +4,7 @@ import { Sparkles, Code, Palette, Zap, Smartphone, Lightbulb } from "lucide-reac
 import { useScrollAnimation, scrollAnimationClasses } from "@/hooks/useScrollAnimation";
 import { cn } from "@/lib/utils";
 import AutoCarousel from "./AutoCarousel";
+import AnimatedLines from "./AnimatedLines";
 
 const services = [
   {
@@ -70,7 +71,8 @@ const Services = () => {
   const { ref: headerRef, isVisible: headerVisible } = useScrollAnimation();
 
   return (
-    <section className="w-full py-12 sm:py-16 md:py-20 bg-gradient-to-b from-background to-secondary/30 overflow-hidden" id="services">
+    <section className="w-full py-12 sm:py-16 md:py-20 bg-gradient-to-b from-background to-secondary/30 overflow-hidden relative" id="services">
+      <AnimatedLines variant="horizontal" color="pulse" />
       <div className="container px-4 sm:px-6 lg:px-8 mx-auto">
         {/* Header */}
         <div 

@@ -269,52 +269,63 @@
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Animated line backgrounds */
-@keyframes line-slide {
+/* Animated line backgrounds - more visible */
+@keyframes line-move-1 {
   0% {
-    transform: translateX(-100%);
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(50%);
+  }
+}
+
+@keyframes line-move-2 {
+  0% {
+    transform: translateX(50%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes line-move-3 {
+  0% {
+    transform: translateX(-30%);
+  }
+  100% {
+    transform: translateX(30%);
+  }
+}
+
+@keyframes dot-travel {
+  0% {
+    left: -5%;
     opacity: 0;
   }
-  50% {
+  10% {
+    opacity: 1;
+  }
+  90% {
     opacity: 1;
   }
   100% {
-    transform: translateX(100%);
+    left: 105%;
     opacity: 0;
   }
 }
 
-@keyframes line-slide-reverse {
-  0% {
-    transform: translateX(100%);
-    opacity: 0;
-  }
-  50% {
-    opacity: 1;
-  }
-  100% {
-    transform: translateX(-100%);
-    opacity: 0;
-  }
+.animate-line-move-1 {
+  animation: line-move-1 20s ease-in-out infinite alternate;
 }
 
-@keyframes wave-path {
-  0%, 100% {
-    d: path("M0,100 C240,150 480,50 720,100 C960,150 1200,50 1440,100");
-  }
-  50% {
-    d: path("M0,100 C240,50 480,150 720,100 C960,50 1200,150 1440,100");
-  }
+.animate-line-move-2 {
+  animation: line-move-2 25s ease-in-out infinite alternate;
 }
 
-.animate-line-slide {
-  animation: line-slide 8s ease-in-out infinite;
+.animate-line-move-3 {
+  animation: line-move-3 18s ease-in-out infinite alternate;
 }
 
-.animate-line-slide-reverse {
-  animation: line-slide-reverse 8s ease-in-out infinite;
-}
-
-.animate-wave-path {
-  animation: wave-path 4s ease-in-out infinite;
+.animate-dot-travel {
+  animation: dot-travel 8s ease-in-out infinite;
 }

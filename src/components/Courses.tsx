@@ -4,6 +4,7 @@ import { Youtube, FileText, ExternalLink } from "lucide-react";
 import { useScrollAnimation, scrollAnimationClasses } from "@/hooks/useScrollAnimation";
 import { cn } from "@/lib/utils";
 import AutoCarousel from "./AutoCarousel";
+import AnimatedLines from "./AnimatedLines";
 
 const courses = [
   {
@@ -38,8 +39,8 @@ const courses = [
 
 const CourseCard = ({ course }: { course: typeof courses[0] }) => {
   return (
-    <div className="group bg-card rounded-2xl overflow-hidden shadow-sm hover:shadow-elegant transition-all duration-500 border border-border hover:border-pulse-500/20 cursor-pointer min-w-[320px] sm:min-w-[400px]">
-      <div className="aspect-video bg-gradient-to-br from-pulse-100 to-pulse-200 dark:from-pulse-900/30 dark:to-pulse-800/30 relative overflow-hidden">
+    <div className="group bg-card rounded-2xl overflow-hidden shadow-sm hover:shadow-elegant transition-all duration-500 border border-border hover:border-purple-500/20 cursor-pointer min-w-[320px] sm:min-w-[400px]">
+      <div className="aspect-video bg-gradient-to-br from-purple-100 to-purple-200 dark:from-purple-900/30 dark:to-purple-800/30 relative overflow-hidden">
         <img 
           src={course.image} 
           alt={course.title}
@@ -65,7 +66,7 @@ const CourseCard = ({ course }: { course: typeof courses[0] }) => {
         </div>
         <div className="flex flex-col gap-3">
           <Button 
-            className="w-full bg-pulse-500 hover:bg-pulse-600 text-white transition-all duration-300 hover:scale-105"
+            className="w-full bg-purple-500 hover:bg-purple-600 text-white transition-all duration-300 hover:scale-105"
             size="lg"
           >
             <Youtube className="w-4 h-4 mr-2" />
@@ -100,6 +101,7 @@ const Courses = () => {
 
   return (
     <section className="w-full py-12 sm:py-16 md:py-20 bg-background relative overflow-hidden" id="courses">
+      <AnimatedLines variant="diagonal" color="purple" />
       <div className="container px-4 sm:px-6 lg:px-8 mx-auto">
         <div 
           ref={headerRef}

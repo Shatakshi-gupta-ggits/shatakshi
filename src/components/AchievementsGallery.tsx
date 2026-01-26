@@ -3,6 +3,7 @@ import { X, ChevronLeft, ChevronRight, Award, Trophy, Medal } from "lucide-react
 import { useScrollAnimation, scrollAnimationClasses } from "@/hooks/useScrollAnimation";
 import { cn } from "@/lib/utils";
 import AutoCarousel from "./AutoCarousel";
+import AnimatedLines from "./AnimatedLines";
 
 const achievements = [
   {
@@ -137,6 +138,8 @@ const AchievementsGallery = () => {
 
   return (
     <section className="w-full py-12 sm:py-16 md:py-20 bg-gradient-to-b from-secondary/30 to-background relative overflow-hidden" id="achievements">
+      <AnimatedLines variant="horizontal" color="pulse" />
+      
       {/* Background decoration */}
       <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
         <div className="absolute top-20 left-10 w-32 h-32 bg-pulse-500/10 rounded-full blur-3xl animate-pulse" />

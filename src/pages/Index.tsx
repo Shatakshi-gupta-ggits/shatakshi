@@ -7,6 +7,7 @@ import Testimonials from "@/components/Testimonials";
 import ProjectsForSale from "@/components/ProjectsForSale";
 import Courses from "@/components/Courses";
 import Tutoring from "@/components/Tutoring";
+import BookingCalendar from "@/components/BookingCalendar";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import AchievementsGallery from "@/components/AchievementsGallery";
@@ -104,6 +105,9 @@ const IndexContent = () => {
             <>
               <SectionTransition delay={100}>
                 <Tutoring />
+              </SectionTransition>
+              <SectionTransition delay={100}>
+                <BookingCalendar />
               </SectionTransition>
               <SectionTransition delay={100}>
                 <Courses />

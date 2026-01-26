@@ -12,58 +12,84 @@ const AnimatedLines = ({
   variant = "horizontal",
   color = "pulse" 
 }: AnimatedLinesProps) => {
-  const colorClasses = {
-    pulse: "from-pulse-500/20 via-pulse-500/10 to-transparent",
-    purple: "from-purple-500/20 via-purple-500/10 to-transparent",
-    muted: "from-muted-foreground/10 via-muted-foreground/5 to-transparent",
+  const strokeColor = {
+    pulse: "#f97316",
+    purple: "#a855f7", 
+    muted: "#6b7280",
   };
 
-  if (variant === "wave") {
-    return (
-      <div className={cn("absolute inset-0 overflow-hidden pointer-events-none", className)}>
-        <svg
-          className="absolute w-full h-full"
-          viewBox="0 0 1440 200"
-          preserveAspectRatio="none"
-        >
-          <path
-            className="animate-wave-path"
-            d="M0,100 C240,150 480,50 720,100 C960,150 1200,50 1440,100"
-            fill="none"
-            stroke={color === "pulse" ? "hsl(var(--pulse-500) / 0.2)" : color === "purple" ? "hsl(270 70% 60% / 0.2)" : "hsl(var(--muted-foreground) / 0.1)"}
-            strokeWidth="2"
-          />
-        </svg>
-      </div>
-    );
-  }
-
   return (
-    <div className={cn("absolute inset-0 overflow-hidden pointer-events-none", className)}>
-      {/* Animated horizontal line */}
+    <div className={cn("absolute inset-0 overflow-hidden pointer-events-none z-0", className)}>
+      {/* Multiple animated lines */}
+      <svg className="absolute w-full h-full" preserveAspectRatio="none">
+        {/* Line 1 */}
+        <line
+          x1="-100%"
+          y1="20%"
+          x2="200%"
+          y2={variant === "diagonal" ? "30%" : "20%"}
+          stroke={strokeColor[color]}
+          strokeWidth="1"
+          strokeOpacity="0.3"
+          className="animate-line-move-1"
+        />
+        {/* Line 2 */}
+        <line
+          x1="-100%"
+          y1="40%"
+          x2="200%"
+          y2={variant === "diagonal" ? "60%" : "40%"}
+          stroke={strokeColor[color]}
+          strokeWidth="1.5"
+          strokeOpacity="0.2"
+          className="animate-line-move-2"
+        />
+        {/* Line 3 */}
+        <line
+          x1="-100%"
+          y1="60%"
+          x2="200%"
+          y2={variant === "diagonal" ? "50%" : "60%"}
+          stroke={strokeColor[color]}
+          strokeWidth="1"
+          strokeOpacity="0.25"
+          className="animate-line-move-3"
+        />
+        {/* Line 4 */}
+        <line
+          x1="-100%"
+          y1="80%"
+          x2="200%"
+          y2={variant === "diagonal" ? "85%" : "80%"}
+          stroke={strokeColor[color]}
+          strokeWidth="1"
+          strokeOpacity="0.15"
+          className="animate-line-move-1"
+          style={{ animationDelay: "2s" }}
+        />
+      </svg>
+      
+      {/* Glowing dots that travel along lines */}
       <div 
         className={cn(
-          "absolute h-px w-full bg-gradient-to-r animate-line-slide",
-          colorClasses[color],
-          variant === "diagonal" ? "rotate-12 scale-150" : ""
+          "absolute w-2 h-2 rounded-full blur-sm animate-dot-travel",
+          color === "pulse" ? "bg-pulse-500" : color === "purple" ? "bg-purple-500" : "bg-muted-foreground"
         )}
-        style={{ top: "20%" }}
+        style={{ top: "20%", animationDelay: "0s" }}
       />
       <div 
         className={cn(
-          "absolute h-px w-full bg-gradient-to-r animate-line-slide-reverse",
-          colorClasses[color],
-          variant === "diagonal" ? "-rotate-6 scale-150" : ""
+          "absolute w-3 h-3 rounded-full blur-md animate-dot-travel",
+          color === "pulse" ? "bg-pulse-400" : color === "purple" ? "bg-purple-400" : "bg-muted-foreground"
         )}
-        style={{ top: "50%", animationDelay: "1s" }}
+        style={{ top: "50%", animationDelay: "3s" }}
       />
       <div 
         className={cn(
-          "absolute h-px w-full bg-gradient-to-r animate-line-slide",
-          colorClasses[color],
-          variant === "diagonal" ? "rotate-3 scale-150" : ""
+          "absolute w-2 h-2 rounded-full blur-sm animate-dot-travel",
+          color === "pulse" ? "bg-pulse-500" : color === "purple" ? "bg-purple-500" : "bg-muted-foreground"
         )}
-        style={{ top: "80%", animationDelay: "2s" }}
+        style={{ top: "80%", animationDelay: "6s" }}
       />
     </div>
   );

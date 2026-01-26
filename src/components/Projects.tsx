@@ -4,6 +4,7 @@ import { ExternalLink, Github } from "lucide-react";
 import { useScrollAnimation, scrollAnimationClasses } from "@/hooks/useScrollAnimation";
 import { cn } from "@/lib/utils";
 import AutoCarousel from "./AutoCarousel";
+import AnimatedLines from "./AnimatedLines";
 
 const projects = [
   {
@@ -101,6 +102,7 @@ const Projects = () => {
 
   return (
     <section className="w-full py-12 sm:py-16 md:py-20 bg-background relative overflow-hidden" id="projects">
+      <AnimatedLines variant="diagonal" color="pulse" />
       <div className="container px-4 sm:px-6 lg:px-8 mx-auto">
         <div 
           ref={headerRef}

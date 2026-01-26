@@ -6,9 +6,12 @@ import { Linkedin, Instagram, Twitter, Github, Mail, Phone, Send, CheckCircle2, 
 import { useScrollAnimation, scrollAnimationClasses } from "@/hooks/useScrollAnimation";
 import { cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
+import AnimatedLines from "./AnimatedLines";
+import { usePersona } from "@/contexts/PersonaContext";
 
 const Contact = () => {
   const { toast } = useToast();
+  const { persona } = usePersona();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -22,6 +25,8 @@ const Contact = () => {
   const { ref: headerRef, isVisible: headerVisible } = useScrollAnimation();
   const { ref: formRef, isVisible: formVisible } = useScrollAnimation();
   const { ref: infoRef, isVisible: infoVisible } = useScrollAnimation();
+
+  const isPurple = persona === "tutor";
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -59,9 +64,17 @@ const Contact = () => {
 
   return (
     <section className="w-full py-16 sm:py-20 md:py-24 bg-gradient-to-b from-secondary/30 to-background relative overflow-hidden" id="contact">
+      <AnimatedLines variant="horizontal" color={isPurple ? "purple" : "pulse"} />
+      
       {/* Background decorations */}
-      <div className="absolute top-0 left-0 w-96 h-96 bg-pulse-500/5 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2" />
-      <div className="absolute bottom-0 right-0 w-96 h-96 bg-pulse-500/5 rounded-full blur-3xl translate-x-1/2 translate-y-1/2" />
+      <div className={cn(
+        "absolute top-0 left-0 w-96 h-96 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2",
+        isPurple ? "bg-purple-500/5" : "bg-pulse-500/5"
+      )} />
+      <div className={cn(
+        "absolute bottom-0 right-0 w-96 h-96 rounded-full blur-3xl translate-x-1/2 translate-y-1/2",
+        isPurple ? "bg-purple-500/5" : "bg-pulse-500/5"
+      )} />
 
       <div className="container px-4 sm:px-6 lg:px-8 mx-auto relative z-10">
         <div 
