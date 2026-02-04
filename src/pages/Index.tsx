@@ -16,10 +16,15 @@ import PageLoader from "@/components/PageLoader";
 import SectionTransition from "@/components/SectionTransition";
 import PersonaSelector from "@/components/PersonaSelector";
 import PersonaToggle from "@/components/PersonaToggle";
+import SectionProgressIndicator from "@/components/SectionProgressIndicator";
+import { useSmoothScroll } from "@/hooks/useSmoothScroll";
 import { PersonaProvider, usePersona } from "@/contexts/PersonaContext";
 
 const IndexContent = () => {
   const { persona, isSelected } = usePersona();
+  
+  // Enable smooth scrolling
+  useSmoothScroll();
 
   // Initialize intersection observer to detect when elements enter viewport
   useEffect(() => {
@@ -43,29 +48,6 @@ const IndexContent = () => {
     };
   }, []);
 
-  useEffect(() => {
-    // This helps ensure smooth scrolling for the anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        
-        const targetId = this.getAttribute('href')?.substring(1);
-        if (!targetId) return;
-        
-        const targetElement = document.getElementById(targetId);
-        if (!targetElement) return;
-        
-        // Increased offset to account for mobile nav
-        const offset = window.innerWidth < 768 ? 100 : 80;
-        
-        window.scrollTo({
-          top: targetElement.offsetTop - offset,
-          behavior: 'smooth'
-        });
-      });
-    });
-  }, []);
-
   const showFreelancer = persona === "freelancer" || !isSelected;
   const showTutor = persona === "tutor" || !isSelected;
 
@@ -74,6 +56,7 @@ const IndexContent = () => {
       <PageLoader />
       <PersonaSelector />
       <PersonaToggle />
+      <SectionProgressIndicator />
       <CustomCursor />
       <div className={`min-h-screen cursor-none md:cursor-none ${!isSelected ? 'hidden' : ''}`}>
         <Navbar />
