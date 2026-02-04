@@ -1,22 +1,34 @@
 import React, { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
-import { Menu, X } from "lucide-react";
+import { Code2, GraduationCap } from "lucide-react";
 import ThemeToggle from "./ThemeToggle";
+import { usePersona } from "@/contexts/PersonaContext";
 
-const navLinks = [
+const freelancerLinks = [
   { href: "#services", label: "Services" },
   { href: "#projects", label: "Projects" },
   { href: "#achievements", label: "Achievements" },
-  { href: "#testimonials", label: "Testimonials" },
   { href: "#products", label: "Products" },
+  { href: "#testimonials", label: "Testimonials" },
+  { href: "#contact", label: "Contact" },
+];
+
+const tutorLinks = [
+  { href: "#tutoring", label: "Tutoring" },
+  { href: "#booking", label: "Book Session" },
   { href: "#courses", label: "Courses" },
+  { href: "#testimonials", label: "Testimonials" },
   { href: "#contact", label: "Contact" },
 ];
 
 const Navbar = () => {
+  const { persona } = usePersona();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("");
+
+  const navLinks = persona === "tutor" ? tutorLinks : freelancerLinks;
+  const accentColor = persona === "tutor" ? "purple" : "pulse";
 
   useEffect(() => {
     const handleScroll = () => {
@@ -35,7 +47,7 @@ const Navbar = () => {
     
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [navLinks]);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -75,8 +87,13 @@ const Navbar = () => {
             onClick={(e) => { e.preventDefault(); scrollToTop(); }}
             aria-label="Home"
           >
-            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-pulse-500 to-pulse-600 flex items-center justify-center text-white font-display font-bold text-sm group-hover:scale-110 transition-transform duration-300">
-              S
+            <div className={cn(
+              "w-8 h-8 rounded-full flex items-center justify-center text-white font-display font-bold text-sm group-hover:scale-110 transition-transform duration-300",
+              persona === "tutor" 
+                ? "bg-gradient-to-br from-purple-500 to-purple-600" 
+                : "bg-gradient-to-br from-pulse-500 to-pulse-600"
+            )}>
+              {persona === "tutor" ? <GraduationCap className="w-4 h-4" /> : <Code2 className="w-4 h-4" />}
             </div>
             <span className="hidden sm:inline font-display font-semibold text-foreground">
               Shatakshi
@@ -92,7 +109,9 @@ const Navbar = () => {
                 className={cn(
                   "px-3 py-1.5 rounded-full text-sm font-medium transition-all duration-300",
                   activeSection === link.href.slice(1)
-                    ? "bg-pulse-500 text-white shadow-md"
+                    ? persona === "tutor"
+                      ? "bg-purple-500 text-white shadow-md"
+                      : "bg-pulse-500 text-white shadow-md"
                     : "text-muted-foreground hover:text-foreground hover:bg-secondary"
                 )}
               >
@@ -107,9 +126,14 @@ const Navbar = () => {
             
             <a
               href="#contact"
-              className="hidden sm:flex items-center gap-2 px-4 py-2 rounded-full bg-pulse-500 text-white text-sm font-medium hover:bg-pulse-600 transition-all duration-300 hover:scale-105 hover:shadow-lg"
+              className={cn(
+                "hidden sm:flex items-center gap-2 px-4 py-2 rounded-full text-white text-sm font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg",
+                persona === "tutor"
+                  ? "bg-purple-500 hover:bg-purple-600"
+                  : "bg-pulse-500 hover:bg-pulse-600"
+              )}
             >
-              Hire Me
+              {persona === "tutor" ? "Book Session" : "Hire Me"}
             </a>
 
             {/* Mobile menu button */}
@@ -155,7 +179,12 @@ const Navbar = () => {
         )}>
           <a 
             href="#" 
-            className="text-2xl font-display font-medium text-foreground hover:text-pulse-500 transition-colors"
+            className={cn(
+              "text-2xl font-display font-medium transition-colors",
+              persona === "tutor" 
+                ? "text-foreground hover:text-purple-500" 
+                : "text-foreground hover:text-pulse-500"
+            )}
             onClick={(e) => { e.preventDefault(); scrollToTop(); }}
           >
             Home
@@ -167,8 +196,10 @@ const Navbar = () => {
               className={cn(
                 "text-2xl font-display font-medium transition-all duration-300",
                 activeSection === link.href.slice(1)
-                  ? "text-pulse-500"
-                  : "text-foreground hover:text-pulse-500"
+                  ? persona === "tutor" ? "text-purple-500" : "text-pulse-500"
+                  : persona === "tutor" 
+                    ? "text-foreground hover:text-purple-500" 
+                    : "text-foreground hover:text-pulse-500"
               )}
               style={{ animationDelay: `${index * 50}ms` }}
               onClick={closeMenu}
@@ -178,11 +209,16 @@ const Navbar = () => {
           ))}
           
           <a
-            href="#contact"
-            className="mt-4 px-8 py-3 rounded-full bg-pulse-500 text-white font-medium hover:bg-pulse-600 transition-all duration-300"
+            href={persona === "tutor" ? "#booking" : "#contact"}
+            className={cn(
+              "mt-4 px-8 py-3 rounded-full text-white font-medium transition-all duration-300",
+              persona === "tutor"
+                ? "bg-purple-500 hover:bg-purple-600"
+                : "bg-pulse-500 hover:bg-pulse-600"
+            )}
             onClick={closeMenu}
           >
-            Hire Me
+            {persona === "tutor" ? "Book Session" : "Hire Me"}
           </a>
         </div>
       </div>
