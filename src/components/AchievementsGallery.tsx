@@ -4,47 +4,53 @@ import { useScrollAnimation, scrollAnimationClasses } from "@/hooks/useScrollAni
 import { cn } from "@/lib/utils";
 import AutoCarousel from "./AutoCarousel";
 import AnimatedLines from "./AnimatedLines";
+import achieveHackathonImg from "@/assets/achieve-hackathon.jpg";
+import achieveCloudCertImg from "@/assets/achieve-cloud-cert.jpg";
+import achieveEnterpriseImg from "@/assets/achieve-enterprise.jpg";
+import achieveAiAwardImg from "@/assets/achieve-ai-award.jpg";
+import achieveOpensourceImg from "@/assets/achieve-opensource.jpg";
+import achieveTechnicalImg from "@/assets/achieve-technical.jpg";
 
 const achievements = [
   {
     title: "National CyberShield Hackathon Winner 2025",
     description: "1st Place - TriNetra AI: Money Laundering Detection System using Graph Neural Networks",
-    image: "/lovable-uploads/c3d5522b-6886-4b75-8ffc-d020016bb9c2.png",
+    image: achieveHackathonImg,
     icon: Trophy,
     category: "Hackathon",
   },
   {
     title: "Cloud Architecture Certification",
     description: "AWS Solutions Architect certification demonstrating expertise in cloud infrastructure",
-    image: "/lovable-uploads/22d31f51-c174-40a7-bd95-00e4ad00eaf3.png",
+    image: achieveCloudCertImg,
     icon: Award,
     category: "Certification",
   },
   {
     title: "Enterprise Solution Delivery",
     description: "Successfully delivered 10+ enterprise applications at Infosys with 95%+ uptime",
-    image: "/lovable-uploads/5663820f-6c97-4492-9210-9eaa1a8dc415.png",
+    image: achieveEnterpriseImg,
     icon: Medal,
     category: "Professional",
   },
   {
     title: "AI Innovation Award",
     description: "Recognition for implementing AI-driven analytics dashboard with OpenAI integration",
-    image: "/lovable-uploads/af412c03-21e4-4856-82ff-d1a975dc84a9.png",
+    image: achieveAiAwardImg,
     icon: Trophy,
     category: "Innovation",
   },
   {
     title: "Open Source Contributor",
     description: "Active contributor to major open-source projects with 500+ GitHub contributions",
-    image: "/lovable-uploads/dc13e94f-beeb-4671-8a22-0968498cdb4c.png",
+    image: achieveOpensourceImg,
     icon: Award,
     category: "Community",
   },
   {
     title: "Technical Excellence",
     description: "Recognized for building scalable microservices architecture handling 100K+ requests/day",
-    image: "/lovable-uploads/22d31f51-c174-40a7-bd95-00e4ad00eaf3.png",
+    image: achieveTechnicalImg,
     icon: Medal,
     category: "Professional",
   },

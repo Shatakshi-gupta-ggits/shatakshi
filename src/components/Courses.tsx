@@ -5,6 +5,10 @@ import { useScrollAnimation, scrollAnimationClasses } from "@/hooks/useScrollAni
 import { cn } from "@/lib/utils";
 import AutoCarousel from "./AutoCarousel";
 import AnimatedLines from "./AnimatedLines";
+import courseFullstackImg from "@/assets/course-fullstack.jpg";
+import courseAiImg from "@/assets/course-ai.jpg";
+import courseDevopsImg from "@/assets/course-devops.jpg";
+import courseMicroservicesImg from "@/assets/course-microservices.jpg";
 
 const courses = [
   {
@@ -12,28 +16,28 @@ const courses = [
     description: "Complete guide to building modern web applications with React, Node.js, and deployment strategies.",
     duration: "12 hours",
     lessons: 45,
-    image: "/lovable-uploads/22d31f51-c174-40a7-bd95-00e4ad00eaf3.png",
+    image: courseFullstackImg,
   },
   {
     title: "AI Integration Masterclass",
     description: "Learn to integrate ChatGPT, Claude, and custom AI models into your applications with practical examples.",
     duration: "8 hours",
     lessons: 32,
-    image: "/lovable-uploads/5663820f-6c97-4492-9210-9eaa1a8dc415.png",
+    image: courseAiImg,
   },
   {
     title: "Cloud & DevOps Fundamentals",
     description: "Master Docker, Kubernetes, CI/CD pipelines, and cloud deployment on AWS and Azure.",
     duration: "10 hours",
     lessons: 38,
-    image: "/lovable-uploads/af412c03-21e4-4856-82ff-d1a975dc84a9.png",
+    image: courseDevopsImg,
   },
   {
     title: "Microservices Architecture",
     description: "Design and build scalable microservices with Spring Boot, API Gateways, and service mesh patterns.",
     duration: "15 hours",
     lessons: 52,
-    image: "/lovable-uploads/c3d5522b-6886-4b75-8ffc-d020016bb9c2.png",
+    image: courseMicroservicesImg,
   },
 ];
 

@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ShoppingCart, Wrench, ChevronDown } from "lucide-react";
+import productEcommerceImg from "@/assets/product-ecommerce.jpg";
+import productChatbotImg from "@/assets/product-chatbot.jpg";
+import productSaasImg from "@/assets/product-saas.jpg";
+import productDashboardImg from "@/assets/product-dashboard.jpg";
 
 const productsForSale = [
   {
@@ -8,28 +12,28 @@ const productsForSale = [
     description: "Complete full-stack e-commerce solution with payment integration, admin dashboard, and inventory management. Ready to deploy.",
     price: "$299",
     features: ["React + Node.js", "Payment Integration", "Admin Panel", "Mobile Responsive"],
-    image: "/lovable-uploads/22d31f51-c174-40a7-bd95-00e4ad00eaf3.png",
+    image: productEcommerceImg,
   },
   {
     title: "AI Chatbot Template",
     description: "Pre-built AI chatbot with OpenAI integration, customizable responses, and analytics dashboard. Easy to integrate into any website.",
     price: "$199",
     features: ["OpenAI GPT", "Analytics", "Customizable", "API Ready"],
-    image: "/lovable-uploads/5663820f-6c97-4492-9210-9eaa1a8dc415.png",
+    image: productChatbotImg,
   },
   {
     title: "SaaS Boilerplate",
     description: "Production-ready SaaS template with authentication, subscription billing, team management, and multi-tenancy support.",
     price: "$399",
     features: ["Auth System", "Stripe Billing", "Team Features", "Multi-tenant"],
-    image: "/lovable-uploads/af412c03-21e4-4856-82ff-d1a975dc84a9.png",
+    image: productSaasImg,
   },
   {
     title: "Dashboard UI Kit",
     description: "Modern admin dashboard with 50+ pre-built components, charts, tables, and forms. Built with React and Tailwind CSS.",
     price: "$149",
     features: ["50+ Components", "Dark Mode", "Charts", "Responsive"],
-    image: "/lovable-uploads/c3d5522b-6886-4b75-8ffc-d020016bb9c2.png",
+    image: productDashboardImg,
   },
 ];
 
