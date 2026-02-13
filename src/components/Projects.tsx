@@ -5,48 +5,54 @@ import { useScrollAnimation, scrollAnimationClasses } from "@/hooks/useScrollAni
 import { cn } from "@/lib/utils";
 import AutoCarousel from "./AutoCarousel";
 import AnimatedLines from "./AnimatedLines";
+import trainBookingImg from "@/assets/project-train-booking.jpg";
+import arogyaVaaniImg from "@/assets/project-arogya-vaani.jpg";
+import fileConverterImg from "@/assets/project-file-converter.jpg";
+import airbnbLiteImg from "@/assets/project-airbnb-lite.jpg";
+import seamToDoorImg from "@/assets/project-seam-to-door.jpg";
+import ekartImg from "@/assets/project-ekart.jpg";
 
 const projects = [
   {
     title: "Train Booking System",
     description: "A full-featured train reservation system built with Java, handling seat booking, cancellations, and real-time availability tracking.",
     tech: ["Java", "Backend", "Booking System"],
-    image: "/lovable-uploads/22d31f51-c174-40a7-bd95-00e4ad00eaf3.png",
+    image: trainBookingImg,
     github: "https://github.com/Shatakshi-gupta-ggits/train-booking",
   },
   {
     title: "Arogya Vaani",
     description: "A healthcare-focused TypeScript application designed to improve health accessibility and patient communication.",
     tech: ["TypeScript", "Healthcare", "Web App"],
-    image: "/lovable-uploads/5663820f-6c97-4492-9210-9eaa1a8dc415.png",
+    image: arogyaVaaniImg,
     github: "https://github.com/Shatakshi-gupta-ggits/arogya-vaani",
   },
   {
     title: "File Format Converter Pro",
     description: "Convert multiple image files (PNG, JPG, JPEG, etc.) into any format. Built with React and TypeScript for seamless file conversion.",
     tech: ["React", "TypeScript", "File Converter"],
-    image: "/lovable-uploads/af412c03-21e4-4856-82ff-d1a975dc84a9.png",
+    image: fileConverterImg,
     github: "https://github.com/Shatakshi-gupta-ggits/file-formate-converter-pro",
   },
   {
     title: "AirBnb Lite",
     description: "A lightweight clone of AirBnb with property listings, search functionality, and booking features built with JavaScript.",
     tech: ["JavaScript", "Web App", "Clone"],
-    image: "/lovable-uploads/c3d5522b-6886-4b75-8ffc-d020016bb9c2.png",
+    image: airbnbLiteImg,
     github: "https://github.com/Shatakshi-gupta-ggits/AirBnb-lite",
   },
   {
     title: "Seam to Door",
     description: "A TypeScript-based web application for seamless door-to-door service management and delivery tracking.",
     tech: ["TypeScript", "Web App", "Service Platform"],
-    image: "/lovable-uploads/dc13e94f-beeb-4671-8a22-0968498cdb4c.png",
+    image: seamToDoorImg,
     github: "https://github.com/Shatakshi-gupta-ggits/seam-to-door",
   },
   {
     title: "Ekart",
     description: "A full-featured e-commerce platform with product listings, cart management, and checkout functionality.",
     tech: ["JavaScript", "E-commerce", "Web App"],
-    image: "/lovable-uploads/22d31f51-c174-40a7-bd95-00e4ad00eaf3.png",
+    image: ekartImg,
     github: "https://github.com/Shatakshi-gupta-ggits/Ekart",
   },
 ];
