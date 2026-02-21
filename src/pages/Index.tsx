@@ -17,6 +17,7 @@ import SectionTransition from "@/components/SectionTransition";
 import PersonaSelector from "@/components/PersonaSelector";
 import PersonaToggle from "@/components/PersonaToggle";
 import SectionProgressIndicator from "@/components/SectionProgressIndicator";
+import ScanlineOverlay from "@/components/ScanlineOverlay";
 import { useSmoothScroll } from "@/hooks/useSmoothScroll";
 import { PersonaProvider, usePersona } from "@/contexts/PersonaContext";
 
@@ -57,6 +58,7 @@ const IndexContent = () => {
       <PersonaSelector />
       <PersonaToggle />
       <SectionProgressIndicator />
+      <ScanlineOverlay />
       <CustomCursor />
       <div className={`min-h-screen cursor-none md:cursor-none ${!isSelected ? 'hidden' : ''}`}>
         <Navbar />
