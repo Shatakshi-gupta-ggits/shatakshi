@@ -96,14 +96,14 @@ const PersonaSelector = () => {
               </div>
               
               <h2 className="text-xl sm:text-2xl font-display font-bold text-foreground mb-2">
-                Tutor
+                Tutor & Mentor
               </h2>
               <p className="text-muted-foreground mb-4">
-                Passionate educator helping students master programming and AI technologies.
+                Teaching Gen AI, DSA, Full-Stack & interview prep — from beginner to job-ready.
               </p>
               
               <div className="flex flex-wrap gap-2 mb-4">
-                {["1-on-1 Sessions", "Courses", "Mentorship", "DSA"].map((tag) => (
+                {["Gen AI", "DSA", "Interview Prep", "LangChain"].map((tag) => (
                   <span key={tag} className="px-3 py-1 rounded-full bg-secondary text-xs font-medium text-muted-foreground">
                     {tag}
                   </span>

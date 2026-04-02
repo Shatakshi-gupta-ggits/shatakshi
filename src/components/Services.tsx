@@ -89,10 +89,10 @@ const Services = () => {
             </div>
           </div>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold tracking-tight text-foreground mb-4">
-            Expert Development Services
+            What I Can Build For You
           </h2>
           <p className="text-base sm:text-lg text-muted-foreground">
-            From AI-powered solutions to stunning web applications, I bring your ideas to life with cutting-edge technology.
+            Gen AI apps, full-stack products, data dashboards, automation bots — you name it, I ship it.
           </p>
         </div>
 
