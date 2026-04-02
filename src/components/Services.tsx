@@ -9,33 +9,33 @@ import AnimatedLines from "./AnimatedLines";
 const services = [
   {
     icon: Sparkles,
-    title: "AI Integration",
-    description: "Transform your business with cutting-edge AI solutions. From ChatGPT integration to custom machine learning models that drive results.",
+    title: "Gen AI Solutions",
+    description: "Custom LLM apps, RAG pipelines, fine-tuned models, and AI agents built with LangChain, OpenAI, HuggingFace & more.",
   },
   {
     icon: Code,
-    title: "Web Development",
-    description: "Full-stack web applications built with modern technologies like React, Node.js, and Next.js. Fast, scalable, and pixel-perfect.",
+    title: "Full-Stack Development",
+    description: "End-to-end MERN, Next.js & Python apps — from REST APIs to real-time dashboards. Fast, scalable, production-ready.",
   },
   {
     icon: Palette,
-    title: "UI/UX Redesign",
-    description: "Breathe new life into your digital products with stunning redesigns that enhance user experience and boost conversions.",
+    title: "Data Analytics & Viz",
+    description: "Turn raw data into insights. Pandas, SQL, Power BI dashboards, and automated reporting pipelines that drive decisions.",
   },
   {
     icon: Zap,
-    title: "Automation",
-    description: "Automate repetitive tasks and workflows with intelligent solutions. Save time, reduce errors, and increase productivity.",
+    title: "Workflow Automation",
+    description: "n8n, Zapier, custom Python bots — automate repetitive work, scrape the web, and build intelligent pipelines.",
   },
   {
     icon: Smartphone,
-    title: "Mobile Apps",
-    description: "Native and cross-platform mobile applications that deliver exceptional user experiences on iOS and Android devices.",
+    title: "AI Chatbots & Agents",
+    description: "Conversational AI with memory, tool-use, and multi-step reasoning. Deploy on web, WhatsApp, Slack or custom platforms.",
   },
   {
     icon: Lightbulb,
-    title: "Technical Consulting",
-    description: "Strategic guidance on technology stack, architecture decisions, and AI implementation to accelerate your digital transformation.",
+    title: "Cloud & DevOps",
+    description: "AWS, Docker, CI/CD, and serverless architecture. I ship fast and keep things running smooth at scale.",
   },
 ];
 
